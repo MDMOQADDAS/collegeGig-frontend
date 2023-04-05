@@ -22,9 +22,12 @@ function Login() {
         })
             .then((response) => response.json()).then((data) => {
                 localStorage.setItem("authToken", data.token);
-                console.log(data)
-                if (data) { navigate("/user") }
+                localStorage.setItem("userId", data.userId);
+                //console.log(data.userId)
+                if (data.token) { navigate("/user") }
                 else { alert("Email Or Password Wrong...") }
+                
+
 
             })
             .catch(((error) => {

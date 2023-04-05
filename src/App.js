@@ -11,17 +11,20 @@ import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-d
 
 function App() {
   const authToken = localStorage.getItem("authToken");
+  const userId = localStorage.getItem("userId");
+ 
+
   return (
     <Router>
       <Routes>
-        <Route index path="/" element={<IntroPage/ >} />
-        <Route  path="/login" element={<Login />} />
+        <Route index path="/" element={<IntroPage />} />
+        <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
 
-        <Route 
-        path="/user" 
-        element={ authToken? <Dashboard /> : <Navigate to="/login" /> } />
-        
+        <Route
+          path="/user"
+          element={authToken ? <Dashboard userid={userId} /> : <Navigate to="/login" />} />
+
       </Routes>
     </Router>
   );

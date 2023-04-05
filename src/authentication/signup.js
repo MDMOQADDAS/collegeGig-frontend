@@ -19,8 +19,8 @@ function Signup() {
             }
         })
         .then( (response)=> response.json() ).then( (data)=>{
-            localStorage.setItem("authToken", data.token);
-            console.log(data)
+           // localStorage.setItem("authToken", data.token);
+           // console.log(data)
             if(data) navigate("/login")
             else{alert("Not Registerd. try again")}
           

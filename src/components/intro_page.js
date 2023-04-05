@@ -14,6 +14,9 @@ function IntroPage() {
                     <Link to="/login">Login Section</Link>
 
                 </div>
+                <div className="user-dashboard">
+                    <Link to="/user">Dashboard</Link>
+                </div>
             </div>
         </>
     )
