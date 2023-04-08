@@ -17,3 +17,12 @@
 .signup-div{
   text-align: center;
 }
+
+/* sidebar-tools-section */
+.sidebar-tools-section{
+  display: flex;
+}
+
+.sidebar{
+  border-right: 1px red solid;
+}

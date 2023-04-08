@@ -2,7 +2,6 @@ import * as React from 'react';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { styled, alpha } from '@mui/material/styles';
-import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
@@ -17,6 +16,37 @@ import AccountCircle from '@mui/icons-material/AccountCircle';
 import MailIcon from '@mui/icons-material/Mail';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
+import ListItemButton from '@mui/material/ListItemButton';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import Drawer from '@mui/material/Drawer';
+import List from '@mui/material/List';
+import { useTheme } from '@mui/material/styles';
+import CssBaseline from '@mui/material/CssBaseline';
+import MuiAppBar from '@mui/material/AppBar';
+import Divider from '@mui/material/Divider';
+import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
+import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+import ListItem from '@mui/material/ListItem';
+import ListItemText from '@mui/material/ListItemText';
+import InboxIcon from '@mui/icons-material/MoveToInbox';
+import LogoutIcon from '@mui/icons-material/Logout';
+import NotesIcon from '@mui/icons-material/Notes';
+import DocumentScannerIcon from '@mui/icons-material/DocumentScanner';
+import LocalLibraryIcon from '@mui/icons-material/LocalLibrary';
+import GroupIcon from '@mui/icons-material/Group';
+import EventIcon from '@mui/icons-material/Event';
+import WorkIcon from '@mui/icons-material/Work';
+import ClassIcon from '@mui/icons-material/Class';
+import NewspaperIcon from '@mui/icons-material/Newspaper';
+import MapIcon from '@mui/icons-material/Map';
+import MergeIcon from '@mui/icons-material/Merge';
+import AccessibilityIcon from '@mui/icons-material/Accessibility';
+
+import Notes from './Notes';
+import Sidebartools from './Sidebartools';
+
+const drawerWidth = 240;
+
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -57,6 +87,53 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     },
   },
 }));
+
+const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
+  ({ theme, open }) => ({
+    flexGrow: 1,
+    padding: theme.spacing(3),
+    transition: theme.transitions.create('margin', {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.leavingScreen,
+    }),
+    marginLeft: `-${drawerWidth}px`,
+    ...(open && {
+      transition: theme.transitions.create('margin', {
+        easing: theme.transitions.easing.easeOut,
+        duration: theme.transitions.duration.enteringScreen,
+      }),
+      marginLeft: 0,
+    }),
+  }),
+);
+
+const AppBar = styled(MuiAppBar, {
+  shouldForwardProp: (prop) => prop !== 'open',
+})(({ theme, open }) => ({
+  transition: theme.transitions.create(['margin', 'width'], {
+    easing: theme.transitions.easing.sharp,
+    duration: theme.transitions.duration.leavingScreen,
+  }),
+  ...(open && {
+    width: `calc(100% - ${drawerWidth}px)`,
+    marginLeft: `${drawerWidth}px`,
+    transition: theme.transitions.create(['margin', 'width'], {
+      easing: theme.transitions.easing.easeOut,
+      duration: theme.transitions.duration.enteringScreen,
+    }),
+  }),
+}));
+
+const DrawerHeader = styled('div')(({ theme }) => ({
+  display: 'flex',
+  alignItems: 'center',
+  padding: theme.spacing(0, 1),
+  // necessary for content to be below app bar
+  ...theme.mixins.toolbar,
+  justifyContent: 'flex-end',
+}));
+
+
 
 
 function Dashboard(props) {
@@ -205,8 +282,30 @@ function Dashboard(props) {
         </IconButton>
         <p>Profile</p>
       </MenuItem>
+      <MenuItem onClick={handleLogOut}>
+        <IconButton
+          size="large"
+          aria-label="account of current user"
+          aria-controls="primary-search-account-menu"
+          aria-haspopup="true"
+          color="inherit"
+        >
+          <LogoutIcon />
+        </IconButton>
+        <p>Logout</p>
+      </MenuItem>
     </Menu>
   );
+  const theme = useTheme();
+  const [open, setOpen] = React.useState(false);
+
+  const handleDrawerOpen = () => {
+    setOpen(true);
+  };
+
+  const handleDrawerClose = () => {
+    setOpen(false);
+  };
 
   return (
 
@@ -223,6 +322,7 @@ function Dashboard(props) {
                     color="inherit"
                     aria-label="open drawer"
                     sx={{ mr: 2 }}
+                    onClick={handleDrawerOpen}
                   >
                     <MenuIcon />
                   </IconButton>
@@ -285,15 +385,79 @@ function Dashboard(props) {
                   </Box>
                 </Toolbar>
               </AppBar>
+              <Drawer
+                sx={{
+                  width: drawerWidth,
+                  flexShrink: 0,
+                  '& .MuiDrawer-paper': {
+                    width: drawerWidth,
+                    boxSizing: 'border-box',
+                  },
+                }}
+                variant="persistent"
+                anchor="left"
+                open={open}
+              >
+                <DrawerHeader>
+                  <IconButton onClick={handleDrawerClose}>
+                    {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
+                  </IconButton>
+                </DrawerHeader>
+                <Divider />
+                <List>
+                  {['Notes', 'PPTs', 'Library resources'].map((text, index) => (
+                    <ListItem key={text} disablePadding>
+                      <ListItemButton>
+                        <ListItemIcon>
+                          {
+                            index === 0 ? <NotesIcon /> : <></>}{
+                            index === 1 ? <DocumentScannerIcon /> : <></>}{
+                            index === 2 ? <LocalLibraryIcon /> : <></>
+
+                          }
+
+                        </ListItemIcon>
+                        <ListItemText primary={text} />
+                      </ListItemButton>
+                    </ListItem>
+                  ))}
+                </List>
+                <Divider />
+                <List>
+                  {['Study groups', 'Campus events', 'Job board', 'Tutoring services', 'Campus news', 'Internship opportunities', 'Student Directory', 'Campus map'].map((text, index) => (
+                    <ListItem key={text} disablePadding>
+                      <ListItemButton>
+                        <ListItemIcon>
+                          {index === 0 ? <GroupIcon /> : <></>}
+                          {index === 1 ? <EventIcon /> : <></>}
+                          {index === 2 ? <WorkIcon /> : <></>}
+                          {index === 3 ? <ClassIcon /> : <></>}
+                          {index === 4 ? <NewspaperIcon /> : <></>}
+                          {index === 5 ? <GroupIcon /> : <></>}
+                          {index === 6 ? <AccessibilityIcon /> : <></>}
+                          {index === 7 ? <MapIcon /> : <></>}
+                        </ListItemIcon>
+                        <ListItemText primary={text} />
+                      </ListItemButton>
+                    </ListItem>
+                  ))}
+                </List>
+              </Drawer>
               {renderMobileMenu}
               {renderMenu}
             </Box>
           </div>
 
-
+          {/*
           <h1>Welcome {props.userid}</h1>
           <p>Welcome to your college a warm welcome</p>
-         
+          */}
+
+          <div className='sidebar-tools-section'>
+         { /*<Sidebartools />*/}
+          <Notes />
+          </div>
+
         </div>
 
         : <></>}
