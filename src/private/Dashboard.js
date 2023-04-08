@@ -178,6 +178,7 @@ function Dashboard(props) {
           throw new Error('Network response was not ok');
         }
         localStorage.removeItem('authToken');
+        localStorage.removeItem('userId');
         setAccess(false);
         navigate('/login')
 
@@ -455,7 +456,7 @@ function Dashboard(props) {
 
           <div className='sidebar-tools-section'>
          { /*<Sidebartools />*/}
-          <Notes />
+          <Notes userId={localStorage.getItem('userId')} token={localStorage.getItem('authToken')} />
           </div>
 
         </div>
