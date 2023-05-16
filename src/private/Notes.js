@@ -320,7 +320,7 @@ function Notes(props) {
                       />
                       <CardContent>
                         <Typography variant="body2" color="text.secondary">
-                          <a style={{ textDecoration: "none" }} href={post.mediaUrl}>{post.mediaUrl}</a>
+                        Link: <a style={{ textDecoration: "none" }} href={post.mediaUrl}>{post.mediaUrl}</a>
                         </Typography>
                       </CardContent>
                       <CardActions disableSpacing>

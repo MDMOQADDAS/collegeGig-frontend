@@ -25,7 +25,6 @@ import MuiAppBar from '@mui/material/AppBar';
 import Divider from '@mui/material/Divider';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import LogoutIcon from '@mui/icons-material/Logout';
 import NotesIcon from '@mui/icons-material/Notes';
@@ -39,7 +38,15 @@ import NewspaperIcon from '@mui/icons-material/Newspaper';
 import MapIcon from '@mui/icons-material/Map';
 import AccessibilityIcon from '@mui/icons-material/Accessibility';
 import Notes from './Notes';
-
+import PPTs from './PPTs'
+import CampusMap from './CampusMap';
+import CampusEvents from './CampusEvents';
+import CampusNews from './CampusNews';
+import JobBoard from "./JobBoard";
+import LibraryResources from "./LibraryResources";
+import StudentDirectory from "./StudentDirectory";
+import StudyGroups from "./StudyGroups";
+import TutoringServices from "./TutoringServices";
 
 const drawerWidth = 240;
 
@@ -136,6 +143,7 @@ function Dashboard(props) {
 
 
   const [access, setAccess] = useState(false);
+ 
   const navigate = useNavigate();
 
 
@@ -162,7 +170,9 @@ function Dashboard(props) {
         console.error(error);
       });
   },);
-  
+
+
+
   function handleLogOut() {
 
     fetch("http://localhost:3001/api/logout", {
@@ -305,6 +315,111 @@ function Dashboard(props) {
   const handleDrawerClose = () => {
     setOpen(false);
   };
+  //handleside bar click function
+  const [accessComponent, setAccessComponent] = useState(<Notes userId={localStorage.getItem('userId')} token={localStorage.getItem('authToken')} />);
+
+
+
+  function handleNotesClick() {
+   
+    setAccessComponent(<Notes userId={localStorage.getItem('userId')} token={localStorage.getItem('authToken')} />)
+    handleDrawerClose()
+  }
+  function handlePPTsClick() {
+    
+    setAccessComponent(<PPTs/>)
+    handleDrawerClose()
+   
+  }
+
+  function handleLibraryResources(){
+    setAccessComponent(<LibraryResources/>)
+    handleDrawerClose()
+  }
+  function handleStudyGroups(){
+    setAccessComponent(<StudyGroups/>)
+    handleDrawerClose()
+  }
+  function handleCampusEvents(){
+    setAccessComponent(<CampusEvents/>)
+    handleDrawerClose()
+  }
+  function handleJobBoard(){
+    setAccessComponent(<JobBoard/>)
+    handleDrawerClose()
+  }
+  function handleTutoringServices(){
+    setAccessComponent(<TutoringServices/>)
+    handleDrawerClose()
+  }
+  function handleCampusNews(){
+    setAccessComponent(<CampusNews/>)
+    handleDrawerClose()
+  }
+  function handleStudentDirectory(){
+    setAccessComponent(<StudentDirectory />)
+    handleDrawerClose()
+  }
+  function handleCampusMap(){
+    setAccessComponent(<CampusMap/>)
+    handleDrawerClose()
+  }
+
+  const iconData = [
+    {
+      icon: <NotesIcon />,
+      text: 'Notes',
+      onClick: handleNotesClick
+    },
+    {
+      icon: <DocumentScannerIcon />,
+      text: 'PPTs',
+      onClick: handlePPTsClick
+    },
+    {
+      icon: <LocalLibraryIcon />,
+      text: 'Library resources',
+      onClick: handleLibraryResources
+    },
+    {
+      icon: <GroupIcon />,
+      text: 'Study groups',
+      onClick: handleStudyGroups
+    },
+    {
+      icon: <EventIcon />,
+      text: 'Campus events',
+      onClick: handleCampusEvents
+    },
+    {
+      icon: <WorkIcon />,
+      text: 'Job board',
+      onClick: handleJobBoard
+    },
+    {
+      icon: <ClassIcon />,
+      text: 'Tutoring services',
+      onClick: handleTutoringServices
+    },
+    {
+      icon: <NewspaperIcon />,
+      text: 'Campus news',
+      onClick: handleCampusNews
+    },
+    {
+      icon: <AccessibilityIcon />,
+      text: 'Student directory',
+      onClick: handleStudentDirectory
+    },
+    {
+      icon: <MapIcon />,
+      text: 'Campus map',
+      onClick: handleCampusMap
+    },
+
+  ];
+
+
 
   return (
 
@@ -366,6 +481,7 @@ function Dashboard(props) {
                       aria-haspopup="true"
                       onClick={handleProfileMenuOpen}
                       color="inherit"
+
                     >
                       <AccountCircle />
                     </IconButton>
@@ -403,54 +519,26 @@ function Dashboard(props) {
                   </IconButton>
                 </DrawerHeader>
                 <Divider />
+
+
                 <List>
-                  {['Notes', 'PPTs', 'Library resources'].map((text, index) => (
-                    <ListItem key={text} disablePadding>
-                      <ListItemButton>
-
-                        {<ListItemIcon >
-
-                          
-                            {index === 0 ? <NotesIcon  /> : <></>}
-                        
-                         
-                            {index === 1 ? <DocumentScannerIcon /> : <></>}
-                          
-                         
-                            {index === 2 ? <LocalLibraryIcon /> : <></>}
-
-
-                         
-
-
-
-                        </ListItemIcon>}
-                        <ListItemText primary={text} />
-                      </ListItemButton>
-                    </ListItem>
+                  {iconData.map((data, index) => (
+                    <ListItemButton key={data.text} onClick={data.onClick}>
+                      <ListItemIcon >
+                        {data.icon} 
+                      </ListItemIcon>
+                      <ListItemText primary={data.text} />
+                      
+                    </ListItemButton>
+                    
                   ))}
+
                 </List>
-                <Divider />
-                <List>
-                  {['Study groups', 'Campus events', 'Job board', 'Tutoring services', 'Campus news', 'Internship opportunities', 'Student Directory', 'Campus map'].map((text, index) => (
-                    <ListItem key={text} disablePadding>
-                      <ListItemButton>
-                        <ListItemIcon>
-                          {index === 0 ? <GroupIcon /> : <></>}
-                          {index === 1 ? <EventIcon /> : <></>}
-                          {index === 2 ? <WorkIcon /> : <></>}
-                          {index === 3 ? <ClassIcon /> : <></>}
-                          {index === 4 ? <NewspaperIcon /> : <></>}
-                          {index === 5 ? <GroupIcon /> : <></>}
-                          {index === 6 ? <AccessibilityIcon /> : <></>}
-                          {index === 7 ? <MapIcon /> : <></>}
-                        </ListItemIcon>
-                        <ListItemText primary={text} />
-                      </ListItemButton>
-                    </ListItem>
-                  ))}
-                </List>
+
               </Drawer>
+
+
+
               {renderMobileMenu}
               {renderMenu}
             </Box>
@@ -462,10 +550,10 @@ function Dashboard(props) {
           */}
 
           <div className='sidebar-tools-section'>
-         
-          <Notes userId={localStorage.getItem('userId')} token={localStorage.getItem('authToken')} />
 
-          
+          {/*  <Notes userId={localStorage.getItem('userId')} token={localStorage.getItem('authToken')} /> */}
+          {accessComponent}
+
           </div>
 
         </div>
