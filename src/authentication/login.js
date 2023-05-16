@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate, Link } from 'react-router-dom';
+import TextField from '@mui/material/TextField';
+import { Button } from "@mui/material";
 
 
 
@@ -26,7 +28,7 @@ function Login() {
                 //console.log(data.userId)
                 if (data.token) { navigate("/user") }
                 else { alert("Email Or Password Wrong...") }
-                
+
 
 
             })
@@ -37,38 +39,61 @@ function Login() {
     }
 
     return (
-        <div className="login-div">
+        <div>
+            <div className="main-menu">
+                <div>
+                <Link style={{textDecoration: "none"}} to="/"><p className="app-name">CollegeGig</p></Link>
+                </div>
+                <div className="signup-login-box">
 
-            <div className="loginbox">
-                <p>Login</p>
-                <form onSubmit={handleSubmit}>
-                    <label htmlFor="email">Email</label>
-                    <input
-                        id="email"
-                        type="text"
-                        value={email}
-                        onChange={(e) => { setEmail(e.target.value) }}
-                    />
-                    <br />
-                    <label htmlFor="password">Password</label>
-                    <input
-                        id="password"
-                        type="password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                    />
+                    <div className="signup-section">
+                        <Link className="a-signup" to="/signup">SignUP </Link>
 
-                    <br />
-                    <button type="submit">Login</button>
-                </form>
+                    </div>
+                    <div className="login-section">
+                        <Link className="a-login" to="/login">Login </Link>
 
+                    </div>
+                    <div className="user-dashboard">
+                        <Link className="a-dashboard" to="/user">Dashboard</Link>
+                    </div>
+                </div>
+            </div>
+            <div className="login-div">
+
+                <div className="loginbox">
+                    
+                    <form onSubmit={handleSubmit}>
+                      <br/>
+                        <TextField
+                            label="Email"
+                           // id="email"
+                            type="text"
+                            value={email}
+                            onChange={(e) => { setEmail(e.target.value) }}
+                        />
+                        <br />
+                       <br/>
+                        <TextField
+                            label="Password"
+                            id="password"
+                            type="password"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                        />
+
+                        <br /><br/>
+                        <Button variant="contained" type="submit">Login</Button>
+                    </form>
+
+
+                </div>
+
+                {/* <div>
+                    <Link to="/">Home</Link>
+                </div> */}
 
             </div>
-
-            <div>
-                <Link to="/">Home</Link>
-            </div>
-
         </div>
     )
 }

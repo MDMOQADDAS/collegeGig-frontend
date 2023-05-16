@@ -1,28 +1,146 @@
-*{
+* {
   margin: 0px;
   padding: 0px;
 }
 
-.login-div{
-  text-align: center;
+/* main menu */
+
+  .main-menu {
+    background-color: #212020;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.app-name{
+  font-size: 32px;
+  color: green;
+  font-family: fantasy;
+  text-shadow: 2px 2px rgb(185, 183, 183);
   
 }
 
+.logo {
+  float: left;
+  margin: 10px 10px 10px 0;
+}
 
-.signup-login-box{
-  text-align: center;
+.signup-login-box {
+  float: right;
+  margin: 10px 0 10px 10px;
+}
+
+.signup-section {
+  padding: 0 10px;
+}
+
+.login-section {
+  padding: 0 10px;
+}
+
+.user-dashboard {
+  padding: 0 10px;
+}
+
+.a-login,.a-signup, .a-dashboard {
+  text-decoration: none;
+  font-size: 18px;
+  color: white;
+}
+
+.a-login:hover, .a-signup:hover, .a-dashboard:hover {
+  color: #eaff31;
+}
+
+/*body */
+.content {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 40px;
+ 
+}
+
+.content h1 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.content h2 {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.content p {
+  margin-bottom: 15px;
+}
+
+.content ul {
+  margin-bottom: 20px;
+}
+
+.content ul li {
+  margin-bottom: 10px;
+}
+
+
+
+.signup-login-box {
+  display: inline-flex;
+  float: left;
+  justify-content: space-around;
 }
 
 /* Signup CSS*/
-.signup-div{
+.signup-div {
   text-align: center;
+  margin-top: 50px;
+ 
 }
 
 /* sidebar-tools-section */
-.sidebar-tools-section{
+.sidebar-tools-section {
   display: flex;
 }
 
-.sidebar{
+.sidebar {
   border-right: 1px red solid;
+}
+
+/* Notes component */
+.notes-div {
+  display: flex;
+
+}
+
+.add-post-div {
+  width: 200px;
+  border-right: 1px rgb(129, 129, 129) solid;
+}
+
+
+.posts-card {
+  margin-top: 10px;
+
+  position: relative;
+  left: 50%;
+}
+
+.new-post-div {
+  width: 100%;
+  position: relative;
+  top: 30px;
+}
+
+/*signupbox */
+.signupbox{
+ 
+  max-width: 600px;
+  margin: 0 auto;
+
+}
+.loginbox{
+  max-width: 600px;
+  margin: 0 auto;
+  margin-top: 50px;
+  text-align: center;
 }

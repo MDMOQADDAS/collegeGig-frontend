@@ -44,6 +44,8 @@ import AccessibilityIcon from '@mui/icons-material/Accessibility';
 
 import Notes from './Notes';
 import Sidebartools from './Sidebartools';
+import PPTs from './PPTs';
+
 
 const drawerWidth = 240;
 
@@ -141,6 +143,14 @@ function Dashboard(props) {
 
   const [access, setAccess] = useState(false);
   const navigate = useNavigate();
+  //this we using to handle the sidebar action
+  const [activeIndex, setActiveIndex] = useState(0);
+  //this will handleSide Bar click
+  const handleSideBarClick = (index) => {
+    setActiveIndex(index);
+    console.log(activeIndex)
+  };
+
 
   useEffect(() => {
     fetch("http://localhost:3001/api/protected", {
@@ -409,15 +419,24 @@ function Dashboard(props) {
                   {['Notes', 'PPTs', 'Library resources'].map((text, index) => (
                     <ListItem key={text} disablePadding>
                       <ListItemButton>
-                        <ListItemIcon>
-                          {
-                            index === 0 ? <NotesIcon /> : <></>}{
-                            index === 1 ? <DocumentScannerIcon /> : <></>}{
-                            index === 2 ? <LocalLibraryIcon /> : <></>
 
-                          }
+                        {<ListItemIcon >
 
-                        </ListItemIcon>
+                          <div onClick={() => handleSideBarClick(0)}>
+                            {index === 0 ? <NotesIcon  /> : <></>}
+                          </div>
+                          <div onClick={() => handleSideBarClick(1)}>
+                            {index === 1 ? <DocumentScannerIcon /> : <></>}
+                          </div>
+                          <div onClick={() => handleSideBarClick(2)}>
+                            {index === 2 ? <LocalLibraryIcon /> : <></>}
+
+
+                          </div>
+
+
+
+                        </ListItemIcon>}
                         <ListItemText primary={text} />
                       </ListItemButton>
                     </ListItem>
@@ -455,8 +474,11 @@ function Dashboard(props) {
           */}
 
           <div className='sidebar-tools-section'>
-         { /*<Sidebartools />*/}
-          <Notes userId={localStorage.getItem('userId')} token={localStorage.getItem('authToken')} />
+            { /*<Sidebartools />*/}
+            {/* <Notes userId={localStorage.getItem('userId')} token={localStorage.getItem('authToken')} /> */}
+
+            {activeIndex === 0 && <Notes userId={localStorage.getItem('userId')} token={localStorage.getItem('authToken')} />}
+            {activeIndex===1 && <PPTs />}
           </div>
 
         </div>
