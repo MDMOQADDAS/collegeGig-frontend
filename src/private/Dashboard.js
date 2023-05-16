@@ -21,14 +21,12 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import Drawer from '@mui/material/Drawer';
 import List from '@mui/material/List';
 import { useTheme } from '@mui/material/styles';
-import CssBaseline from '@mui/material/CssBaseline';
 import MuiAppBar from '@mui/material/AppBar';
 import Divider from '@mui/material/Divider';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
 import LogoutIcon from '@mui/icons-material/Logout';
 import NotesIcon from '@mui/icons-material/Notes';
 import DocumentScannerIcon from '@mui/icons-material/DocumentScanner';
@@ -39,12 +37,8 @@ import WorkIcon from '@mui/icons-material/Work';
 import ClassIcon from '@mui/icons-material/Class';
 import NewspaperIcon from '@mui/icons-material/Newspaper';
 import MapIcon from '@mui/icons-material/Map';
-import MergeIcon from '@mui/icons-material/Merge';
 import AccessibilityIcon from '@mui/icons-material/Accessibility';
-
 import Notes from './Notes';
-import Sidebartools from './Sidebartools';
-import PPTs from './PPTs';
 
 
 const drawerWidth = 240;
@@ -90,24 +84,24 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
-  ({ theme, open }) => ({
-    flexGrow: 1,
-    padding: theme.spacing(3),
-    transition: theme.transitions.create('margin', {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-    }),
-    marginLeft: `-${drawerWidth}px`,
-    ...(open && {
-      transition: theme.transitions.create('margin', {
-        easing: theme.transitions.easing.easeOut,
-        duration: theme.transitions.duration.enteringScreen,
-      }),
-      marginLeft: 0,
-    }),
-  }),
-);
+// const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
+//   ({ theme, open }) => ({
+//     flexGrow: 1,
+//     padding: theme.spacing(3),
+//     transition: theme.transitions.create('margin', {
+//       easing: theme.transitions.easing.sharp,
+//       duration: theme.transitions.duration.leavingScreen,
+//     }),
+//     marginLeft: `-${drawerWidth}px`,
+//     ...(open && {
+//       transition: theme.transitions.create('margin', {
+//         easing: theme.transitions.easing.easeOut,
+//         duration: theme.transitions.duration.enteringScreen,
+//       }),
+//       marginLeft: 0,
+//     }),
+//   }),
+// );
 
 const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== 'open',
@@ -143,13 +137,7 @@ function Dashboard(props) {
 
   const [access, setAccess] = useState(false);
   const navigate = useNavigate();
-  //this we using to handle the sidebar action
-  const [activeIndex, setActiveIndex] = useState(0);
-  //this will handleSide Bar click
-  const handleSideBarClick = (index) => {
-    setActiveIndex(index);
-    console.log(activeIndex)
-  };
+
 
 
   useEffect(() => {
@@ -173,8 +161,8 @@ function Dashboard(props) {
       .catch(error => {
         console.error(error);
       });
-  }, []);
-
+  },);
+  
   function handleLogOut() {
 
     fetch("http://localhost:3001/api/logout", {
@@ -422,17 +410,17 @@ function Dashboard(props) {
 
                         {<ListItemIcon >
 
-                          <div onClick={() => handleSideBarClick(0)}>
+                          
                             {index === 0 ? <NotesIcon  /> : <></>}
-                          </div>
-                          <div onClick={() => handleSideBarClick(1)}>
+                        
+                         
                             {index === 1 ? <DocumentScannerIcon /> : <></>}
-                          </div>
-                          <div onClick={() => handleSideBarClick(2)}>
+                          
+                         
                             {index === 2 ? <LocalLibraryIcon /> : <></>}
 
 
-                          </div>
+                         
 
 
 
@@ -474,11 +462,10 @@ function Dashboard(props) {
           */}
 
           <div className='sidebar-tools-section'>
-            { /*<Sidebartools />*/}
-            {/* <Notes userId={localStorage.getItem('userId')} token={localStorage.getItem('authToken')} /> */}
+         
+          <Notes userId={localStorage.getItem('userId')} token={localStorage.getItem('authToken')} />
 
-            {activeIndex === 0 && <Notes userId={localStorage.getItem('userId')} token={localStorage.getItem('authToken')} />}
-            {activeIndex===1 && <PPTs />}
+          
           </div>
 
         </div>

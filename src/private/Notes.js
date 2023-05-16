@@ -75,7 +75,7 @@ function Notes(props) {
 
   useEffect(() => {
     fetchPosts();
-  }, []);
+  }, );
 
   const fetchPosts = async () => {
     try {
@@ -102,7 +102,7 @@ function Notes(props) {
       });
       //console.log(response.status);
       if (response.status === 201) {
-        alert("Created...")
+       // alert("Created...")
         handleClose()
       }
       fetchPosts();
