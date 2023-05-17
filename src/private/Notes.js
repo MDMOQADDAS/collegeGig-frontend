@@ -25,6 +25,7 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { styled } from '@mui/material/styles';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
+import moment from "moment"
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -93,6 +94,7 @@ function Notes(props) {
     event.preventDefault();
     try {
       const response = await axios.post('http://localhost:3001/api/posts', {
+        name: props.username,
         title: newPostTitle,
         description: newPostDescription,
         userId: props.userId,
@@ -283,7 +285,7 @@ function Notes(props) {
                       <CardHeader
                         avatar={
                           <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-                            {post.title[0]}
+                            {post.name[0]}
                           </Avatar>
                         }
                         action={
@@ -310,7 +312,7 @@ function Notes(props) {
                           </>
                         }
                         title={post.title}
-                        subheader="September 14, 2016"
+                        subheader={moment(post.timestamp).format("MMMM Do YYYY")}
                       />
                       <CardMedia
                         component="img"
@@ -320,7 +322,7 @@ function Notes(props) {
                       />
                       <CardContent>
                         <Typography variant="body2" color="text.secondary">
-                        Link: <a style={{ textDecoration: "none" }} href={post.mediaUrl}>{post.mediaUrl}</a>
+                        Link: <a style={{ textDecoration: "none" }} href={post.mediaUrl}>{post.mediaUrl}</a> Created by <b>{post.name}</b>
                         </Typography>
                       </CardContent>
                       <CardActions disableSpacing>

@@ -13,7 +13,6 @@ import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
 import AccountCircle from '@mui/icons-material/AccountCircle';
-import MailIcon from '@mui/icons-material/Mail';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
 import ListItemButton from '@mui/material/ListItemButton';
@@ -47,6 +46,11 @@ import LibraryResources from "./LibraryResources";
 import StudentDirectory from "./StudentDirectory";
 import StudyGroups from "./StudyGroups";
 import TutoringServices from "./TutoringServices";
+import { Dialog, DialogActions, DialogContent, Button, DialogTitle, DialogContentText } from '@mui/material';
+import Draggable from 'react-draggable';
+import Paper from '@mui/material/Paper';
+
+
 
 const drawerWidth = 240;
 
@@ -91,24 +95,6 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-// const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
-//   ({ theme, open }) => ({
-//     flexGrow: 1,
-//     padding: theme.spacing(3),
-//     transition: theme.transitions.create('margin', {
-//       easing: theme.transitions.easing.sharp,
-//       duration: theme.transitions.duration.leavingScreen,
-//     }),
-//     marginLeft: `-${drawerWidth}px`,
-//     ...(open && {
-//       transition: theme.transitions.create('margin', {
-//         easing: theme.transitions.easing.easeOut,
-//         duration: theme.transitions.duration.enteringScreen,
-//       }),
-//       marginLeft: 0,
-//     }),
-//   }),
-// );
 
 const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== 'open',
@@ -136,14 +122,48 @@ const DrawerHeader = styled('div')(({ theme }) => ({
   justifyContent: 'flex-end',
 }));
 
-
+function PaperComponent(props) {
+  return (
+    <Draggable
+      handle="#draggable-dialog-title"
+      cancel={'[class*="MuiDialogContent-root"]'}
+    >
+      <Paper {...props} />
+    </Draggable>
+  );
+}
 
 
 function Dashboard(props) {
 
 
   const [access, setAccess] = useState(false);
- 
+  const [profileClick, setProfileClick] = useState(false);
+  const [myAccount, setMyAccount] = useState(false);
+  const [notificationOpen, setNotificationOpen] = useState(false);
+
+  function handleOpenNotification(){
+    setNotificationOpen(true);
+  }
+  function handleCloseNotification(){
+    setNotificationOpen(false);
+  }
+
+  function handleOpenMyAccount() {
+    setMyAccount(true);
+  }
+  function handleCloseMyAccount() {
+    setMyAccount(false);
+  }
+  function handleOpenProfileDialog() {
+
+    setProfileClick(true)
+  }
+  function handleCloseProfileDialog() {
+
+    setProfileClick(false)
+  }
+
   const navigate = useNavigate();
 
 
@@ -236,8 +256,59 @@ function Dashboard(props) {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-      <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+
+      <MenuItem onClick={handleOpenProfileDialog}>Profile</MenuItem>
+      {/*here we added the dialog */}
+
+
+      <Dialog
+        open={profileClick}
+        onClose={handleCloseProfileDialog}
+        PaperComponent={PaperComponent}
+        aria-labelledby="draggable-dialog-title"
+      >
+        <DialogTitle style={{ cursor: 'move' }} id="draggable-dialog-title">
+          Hello 👋 {localStorage.getItem('username')}
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            Welcome to the CollegeGig.
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button autoFocus onClick={handleCloseProfileDialog}>
+            Close
+          </Button>
+
+        </DialogActions>
+      </Dialog>
+      {/*here we close the dialog */}
+      <MenuItem onClick={handleOpenMyAccount}>My account</MenuItem>
+      
+
+      <Dialog
+       
+        open={myAccount}
+        onClose={handleCloseMyAccount}
+        aria-labelledby="responsive-dialog-title"
+      >
+        <DialogTitle id="responsive-dialog-title">
+          {"My Account"}
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+          This is your account, here you can change your password
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button autoFocus onClick={handleCloseMyAccount}>
+            Close
+          </Button>
+          
+        </DialogActions>
+      </Dialog>
+
+
       <MenuItem onClick={handleLogOut}>Logout</MenuItem>
     </Menu>
   );
@@ -259,26 +330,26 @@ function Dashboard(props) {
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
-      <MenuItem>
-        <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-          <Badge badgeContent={4} color="error">
-            <MailIcon />
-          </Badge>
-        </IconButton>
-        <p>Messages</p>
-      </MenuItem>
-      <MenuItem>
+
+
+      <MenuItem onClick={handleOpenNotification}>
         <IconButton
           size="large"
-          aria-label="show 17 new notifications"
+          aria-label="show 1 new notifications"
           color="inherit"
         >
-          <Badge badgeContent={17} color="error">
+          <Badge badgeContent={1} color="error">
             <NotificationsIcon />
           </Badge>
         </IconButton>
         <p>Notifications</p>
       </MenuItem>
+
+      <Dialog open={notificationOpen} onClose={handleCloseNotification}>
+        <DialogTitle>version 1.2.0 released</DialogTitle>
+      </Dialog>
+
+
       <MenuItem onClick={handleProfileMenuOpen}>
         <IconButton
           size="large"
@@ -291,6 +362,7 @@ function Dashboard(props) {
         </IconButton>
         <p>Profile</p>
       </MenuItem>
+
       <MenuItem onClick={handleLogOut}>
         <IconButton
           size="large"
@@ -316,52 +388,52 @@ function Dashboard(props) {
     setOpen(false);
   };
   //handleside bar click function
-  const [accessComponent, setAccessComponent] = useState(<Notes userId={localStorage.getItem('userId')} token={localStorage.getItem('authToken')} />);
+  const [accessComponent, setAccessComponent] = useState(<Notes userId={localStorage.getItem('userId')} token={localStorage.getItem('authToken')} username={localStorage.getItem('username')} />);
 
 
 
   function handleNotesClick() {
-   
-    setAccessComponent(<Notes userId={localStorage.getItem('userId')} token={localStorage.getItem('authToken')} />)
+
+    setAccessComponent(<Notes userId={localStorage.getItem('userId')} token={localStorage.getItem('authToken')} username={localStorage.getItem('username')} />)
     handleDrawerClose()
   }
   function handlePPTsClick() {
-    
-    setAccessComponent(<PPTs/>)
+
+    setAccessComponent(<PPTs />)
     handleDrawerClose()
-   
+
   }
 
-  function handleLibraryResources(){
-    setAccessComponent(<LibraryResources/>)
+  function handleLibraryResources() {
+    setAccessComponent(<LibraryResources />)
     handleDrawerClose()
   }
-  function handleStudyGroups(){
-    setAccessComponent(<StudyGroups/>)
+  function handleStudyGroups() {
+    setAccessComponent(<StudyGroups />)
     handleDrawerClose()
   }
-  function handleCampusEvents(){
-    setAccessComponent(<CampusEvents/>)
+  function handleCampusEvents() {
+    setAccessComponent(<CampusEvents />)
     handleDrawerClose()
   }
-  function handleJobBoard(){
-    setAccessComponent(<JobBoard/>)
+  function handleJobBoard() {
+    setAccessComponent(<JobBoard />)
     handleDrawerClose()
   }
-  function handleTutoringServices(){
-    setAccessComponent(<TutoringServices/>)
+  function handleTutoringServices() {
+    setAccessComponent(<TutoringServices />)
     handleDrawerClose()
   }
-  function handleCampusNews(){
-    setAccessComponent(<CampusNews/>)
+  function handleCampusNews() {
+    setAccessComponent(<CampusNews />)
     handleDrawerClose()
   }
-  function handleStudentDirectory(){
+  function handleStudentDirectory() {
     setAccessComponent(<StudentDirectory />)
     handleDrawerClose()
   }
-  function handleCampusMap(){
-    setAccessComponent(<CampusMap/>)
+  function handleCampusMap() {
+    setAccessComponent(<CampusMap />)
     handleDrawerClose()
   }
 
@@ -459,17 +531,13 @@ function Dashboard(props) {
                   </Search>
                   <Box sx={{ flexGrow: 1 }} />
                   <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-                    <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-                      <Badge badgeContent={4} color="error">
-                        <MailIcon />
-                      </Badge>
-                    </IconButton>
-                    <IconButton
+
+                    <IconButton onClick={handleOpenNotification}
                       size="large"
-                      aria-label="show 17 new notifications"
+                      aria-label="show 1 new notifications"
                       color="inherit"
                     >
-                      <Badge badgeContent={17} color="error">
+                      <Badge badgeContent={1} color="error">
                         <NotificationsIcon />
                       </Badge>
                     </IconButton>
@@ -485,6 +553,8 @@ function Dashboard(props) {
                     >
                       <AccountCircle />
                     </IconButton>
+                    {/*Here we'll render the user name */}
+                    <MenuItem onClick={handleProfileMenuOpen}>{localStorage.getItem('username')}</MenuItem>
                   </Box>
                   <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
                     <IconButton
@@ -525,12 +595,12 @@ function Dashboard(props) {
                   {iconData.map((data, index) => (
                     <ListItemButton key={data.text} onClick={data.onClick}>
                       <ListItemIcon >
-                        {data.icon} 
+                        {data.icon}
                       </ListItemIcon>
                       <ListItemText primary={data.text} />
-                      
+
                     </ListItemButton>
-                    
+
                   ))}
 
                 </List>
@@ -551,8 +621,10 @@ function Dashboard(props) {
 
           <div className='sidebar-tools-section'>
 
-          {/*  <Notes userId={localStorage.getItem('userId')} token={localStorage.getItem('authToken')} /> */}
-          {accessComponent}
+            {/*  <Notes userId={localStorage.getItem('userId')} token={localStorage.getItem('authToken')} /> */}
+            {accessComponent}
+            {/* here we are creating the Dialog for profile */}
+
 
           </div>
 

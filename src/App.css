@@ -144,3 +144,52 @@
   margin-top: 50px;
   text-align: center;
 }
+
+/* study-groups-main-div*/
+.study-groups-main-div{
+  max-width: 600px;
+  margin: 0 auto;
+  margin-top: 50px;
+  
+}
+.campus-event-main-div{
+  
+ max-width: 600px;
+ margin: 0 auto;
+  margin-top: 50px;
+}
+
+.job-board-main-div{
+  max-width: 600px;
+  margin: 0 auto;
+  margin-top: 50px;
+}
+
+.job-board {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-gap: 20px;
+}
+
+.job-grid {
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+h3 {
+  margin: 0;
+}
+
+.apply-button {
+  background-color: #4285f4;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.apply-button:hover {
+  background-color: #3367d6;
+}

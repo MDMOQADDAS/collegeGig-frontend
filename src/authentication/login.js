@@ -25,6 +25,7 @@ function Login() {
             .then((response) => response.json()).then((data) => {
                 localStorage.setItem("authToken", data.token);
                 localStorage.setItem("userId", data.userId);
+                localStorage.setItem("username", data.name);
                 //console.log(data.userId)
                 if (data.token) { navigate("/user") }
                 else { alert("Email Or Password Wrong...") }
