@@ -1,70 +1,88 @@
-# Getting Started with Create React App
+# CollegeGig Frontend
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Welcome to the CollegeGig Frontend repository! This repository contains the frontend code for the CollegeGig web application, a centralized platform designed to meet the diverse needs of college students.
 
-## Available Scripts
+## Technologies Used
 
-In the project directory, you can run:
+- React: A popular JavaScript library for building user interfaces, used for creating the dynamic and interactive components of CollegeGig.
+- Material-UI: A UI component library for React, utilized to design a sleek and visually appealing user interface.
+- Redux: A predictable state container for JavaScript applications, used for managing the global state of the CollegeGig frontend.
+- Axios: A lightweight HTTP client for making API requests, employed to communicate with the CollegeGig Backend API.
 
-### `npm start`
+## Getting Started
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+To get started with the CollegeGig Frontend, follow the steps below:
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### Prerequisites
 
-### `npm test`
+- Node.js: Make sure you have Node.js installed on your machine. You can download it from the official website: [https://nodejs.org](https://nodejs.org)
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Installation
 
-### `npm run build`
+1. Clone the repository to your local machine:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```bash
+git clone https://github.com/MDMOQADDAS/collegeGig-frontend.git
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+2. Navigate to the project directory:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```bash
+cd collegeGig-frontend
+```
 
-### `npm run eject`
+3. Install the required dependencies:
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+```bash
+npm install
+```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### Configuration
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+1. Open the `src/config.js` file.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+2. Update the `API_BASE_URL` constant with the appropriate URL of the CollegeGig Backend API. For example:
 
-## Learn More
+```javascript
+export const API_BASE_URL = 'http://localhost:3000/api';
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### Running the Development Server
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+1. Start the development server:
 
-### Code Splitting
+```bash
+npm start
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+2. The server will start running at `http://localhost:3000`, and the CollegeGig Frontend will be accessible through your web browser.
 
-### Analyzing the Bundle Size
+### Building for Production
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+1. To build the production-ready version of the frontend, run the following command:
 
-### Making a Progressive Web App
+```bash
+npm run build
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+2. The optimized and minified production build will be generated in the `build` directory.
 
 ### Deployment
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+The CollegeGig Frontend can be deployed to any hosting platform that supports static website hosting. You can deploy it to services like Netlify, Vercel, or AWS S3.
 
-### `npm run build` fails to minify
+### Customization
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+The CollegeGig Frontend can be customized according to your specific requirements. Feel free to modify the components, styles, or functionality as needed to align with your vision.
+
+## Contributing
+
+We welcome contributions to the CollegeGig Frontend! If you find any bugs or have suggestions for improvements, please open an issue or submit a pull request. We appreciate your input!
+
+## License
+
+The CollegeGig Frontend is open source and released under the [MIT License](LICENSE). Feel free to use, modify, and distribute the code as per the terms of the license.
+
+We hope you enjoy using the CollegeGig Frontend and have a great experience with the CollegeGig web application!
+
+Happy coding! 🚀🎓💻
