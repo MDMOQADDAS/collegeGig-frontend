@@ -15,7 +15,7 @@ function Login() {
 
 
 
-        fetch("http://localhost:3001/api/login", {
+        fetch(`http://${process.env.API_URL}/api/login`, {
             method: "POST",
             body: JSON.stringify({ email, password }),
             headers: {

@@ -169,7 +169,7 @@ function Dashboard(props) {
 
 
   useEffect(() => {
-    fetch("http://localhost:3001/api/protected", {
+    fetch(`http://${process.env.API_URL}/api/protected`, {
       method: "GET",
       headers: {
         Authorization: `Bearer ${localStorage.getItem('authToken')}`
@@ -195,7 +195,7 @@ function Dashboard(props) {
 
   function handleLogOut() {
 
-    fetch("http://localhost:3001/api/logout", {
+    fetch(`http://${process.env.API_URL}/api/logout`, {
       method: "POST",
       headers: {
         Authorization: `Bearer ${localStorage.getItem('authToken')}`
