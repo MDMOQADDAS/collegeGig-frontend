@@ -10,7 +10,7 @@ function ReadData(){
   useEffect ( ()=>{
     const loadPost = async () =>{
       setLoading(true);
-      const response = await axios.get(`http://${process.env.API_URL}/api/posts/`);
+      const response = await axios.get(`http://${process.env.REACT_APP_API_URL}/api/posts/`);
 
       setPosts(response.data);
 
