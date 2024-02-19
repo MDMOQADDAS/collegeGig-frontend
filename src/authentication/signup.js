@@ -13,7 +13,7 @@ function Signup() {
 
     function handleSubmit(event) {
         event.preventDefault();
-        fetch(`http://${process.env.API_URL}/api/signup`, {
+        fetch(`http://${process.env.REACT_APP_API_URL}/api/signup`, {
             method: "POST",
             body: JSON.stringify({ name, email, password }),
             headers: {
