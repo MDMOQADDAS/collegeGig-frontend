@@ -15,7 +15,7 @@ function Login() {
 
 
 
-        fetch(`http://${process.env.API_URL}/api/login`, {
+        fetch(`http://${process.env.REACT_APP_API_URL}/api/login`, {
             method: "POST",
             body: JSON.stringify({ email, password }),
             headers: {
