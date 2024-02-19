@@ -80,7 +80,7 @@ function Notes(props) {
 
   const fetchPosts = async () => {
     try {
-      const response = await axios.get(`http://${process.env.API_URL}/api/posts`,
+      const response = await axios.get(`http://${process.env.REACT_APP_API_URL}/api/posts`,
         {
           headers: { Authorization: `Bearer ${props.token}` }
         });
@@ -93,7 +93,7 @@ function Notes(props) {
   const addPost = async (event) => {
     event.preventDefault();
     try {
-      const response = await axios.post(`http://${process.env.API_URL}/api/posts`, {
+      const response = await axios.post(`http://${process.env.REACT_APP_API_URL}/api/posts`, {
         name: props.username,
         title: newPostTitle,
         description: newPostDescription,
@@ -118,7 +118,7 @@ function Notes(props) {
 
   const updatePost = async (id) => {
     try {
-      const response = await axios.put(`http://${process.env.API_URL}/api/posts/${id}`, {
+      const response = await axios.put(`http://${process.env.REACT_APP_API_URL}/api/posts/${id}`, {
         title: updatingPostTitle,
         description: updatingPostDescription,
         mediaUrl: updatingMediaUrl
@@ -140,7 +140,7 @@ function Notes(props) {
 
   const deletePost = async (id) => {
     try {
-      const response = await axios.delete(`http://${process.env.API_URL}/api/posts/${id}`, {
+      const response = await axios.delete(`http://${process.env.REACT_APP_API_URL}/api/posts/${id}`, {
         headers: { Authorization: `Bearer ${props.token}` }
       });
       //console.log(response.status);
