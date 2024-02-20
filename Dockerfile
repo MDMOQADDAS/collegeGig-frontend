@@ -11,7 +11,8 @@ RUN apk update && \
 
 
 COPY . .
-
+ARG REACT_APP_API_URL=10.103.177.42:3001
+ENV REACT_APP_API_URL=$REACT_APP_API_URL
 RUN npm run build
 
 #Stage2
