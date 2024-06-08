@@ -1,5 +1,6 @@
 name: Build and Deploy
 on:
+  push:
   workflow_dispatch:
 
 jobs:
@@ -12,6 +13,24 @@ jobs:
         run: |
           ls
           echo "hello i am from build job"
+      - name: Setup Docker Buildx
+        uses: docker/setup-buildx-action@v3
+      - name: Login to DockerHub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+      - name: Extract commit ID
+        id: vars
+        run: echo "::set-output name=commit_id::$(echo ${GITHUB_SHA} | cut -c1-7)"
+        
+      - name: Build and Push to Docker Image
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          push: true
+          tags: ${{ secrets.DOCKER_USERNAME }}/frontend:${{ steps.vars.outputs.commit_id }}
+        
 
   deploy:
     runs-on: ubuntu-latest
