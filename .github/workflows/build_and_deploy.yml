@@ -27,7 +27,9 @@ jobs:
 
       - name: Extract commit ID
         id: vars
-        run: echo "commit_id=$(echo ${GITHUB_SHA} | cut -c1-7)" >> $GITHUB_ENV
+        run: |
+          echo "commit_id=$(echo ${GITHUB_SHA} | cut -c1-7)" >> $GITHUB_ENV
+          cat $GITHUB_ENV
         
       - name: Build and Push Docker Image
         uses: docker/build-push-action@v4
